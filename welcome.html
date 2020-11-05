@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<!-- <script src="jquery-3.4.1.min.js"></script> -->
+<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script>
+  window.dataLayer = window.dataLayer || [];
+</script>
+	<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-W9RNQZK');</script>
+<!-- End Google Tag Manager -->
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-3M81GZGXX6"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-3M81GZGXX6');
+</script>
+
+<title>Welcome User</title>
+</head>
+
+<body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W9RNQZK"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+<h1>Account Created. Happy trading!!!</h1>
+<form action="purchase.php" method="POST">
+Enter Stock name:
+<input type = "text" class="s_name" id= "sn" name = "stockname" required/>
+<br>
+<br>
+Enter Stock price:
+<!-- <a class="s_price" id = "sp">30000</a> -->
+<input type = "text" class="s_price" id= "sp" name = "stockprice" oninput="sensextotal()" required/>
+<p>
+	Select Quantity:
+<input class="s_quantity_input" type="text" name="quantity" value="1" autocomplete="off" size="2" oninput="sensextotal()" required></input>
+
+</p>
+<label for="tt">Choose transaction type:</label>
+<select id="tt" name="dropdown" onchange="GetSelectedTextValue()">
+  <option value="buy" selected>Buy</option>
+  <option value="sell">Sell</option>
+</select>
+
+<script>
+function sensextotal(){
+var price = $('#sp').val();
+var qty = $(".s_quantity_input").val();
+var total = price*qty;
+document.getElementById("print").innerHTML =
+"Total amount is: " + total;}
+
+</script>
+
+<script>
+	var result="buy";
+	function GetSelectedTextValue() {
+				var e = document.getElementById("tt");
+				result = e.options[e.selectedIndex].value;
+				if (result=="buy"){
+					return result;
+				}
+				
+				else if (result=="sell"){
+					return result;
+					
+				}
+
+				
+				}
+</script>	
+
+	
+
+	<p id="print"></p>				
+	<br>					
+	<!-- <button class="sensex" id="buy" >Buy</button>
+
+	<button class="sensex" id="sell" >Sell</button> -->
+	<button type = "submit" id="po" name = "placeorder" value = "plor" onclick="GetSelectedTextValue(); ecom();">Place Order</button>
+
+         <!-- <button type = "submit" id="buy" name = "Buysubmit" value = "Buy"  method="POST" onclick="fetch(); ecom();">Buy</button>
+         <button type = "submit" id="sell" name = "Sellsubmit"  value = "Sell" method ="POST" onclick="fetch(); ecom();">Sell</button> -->
+
+     
+
+<script>
+	function ecom(){
+
+var d = new Date();
+var n = d.getTime();
+var pr= $("#sp").val();
+var finalpr=2/100*pr;
+var qty = $(".s_quantity_input").val();
+//var total={{amount}}  
+//var amt=2/100*total;
+dataLayer.push({
+  'event': 'purchase',
+  'dimension1' : result,
+  'metric1' : pr*qty,
+  'ecommerce': {
+    'purchase': {
+      'actionField': {
+        'id': n,
+        'affiliation': 'exchange',
+        'revenue': finalpr*qty
+        },
+      'products': [
+        {
+          'name': $("#sn").val(),
+          'price': finalpr,
+          'quantity': qty
+         
+          }
+      ]
+      }
+    }
+  });
+	}
+
+</script>
+
+
+</form>
+
+
+	<br>
+	
+</p>
+<!-- <h2>Nifty</h2>
+Price:
+<a class="n_price" id = "np">10000</a>
+<p>
+	Select Quantity:
+<input class="n_quantity_input" type="text" name="quantity" value="1" autocomplete="off" size="2"></input>
+</p> 
+
+<script>function niftytotal(){
+var price = $('#np').text();
+var qty = $(".n_quantity_input").val();
+var total = price*qty;
+document.getElementById("print").innerHTML =
+"Total amount is: " + total;}
+
+</script>
+ 
+    
+<button id="ncal" onclick="niftytotal(); niftyvisibility();">Calculate amount</button>				
+	<br>					
+							
+								
+	<button class="nifty" id="buy" style="visibility:hidden" >Buy</button>
+	<button class="nifty" id="sell" style="visibility:hidden" >Sell</button>
+
+<script>
+function niftyvisibility()
+{
+for (i = 0; i < 2; i++) {
+
+document.getElementsByClassName("nifty")[i].style.visibility = 'visible';
+}
+
+}
+</script>
+ -->	<!-- <br>
+	<h2>Cart Amount</h2> -->
+
+	
+	
+<!-- </p> -->
+
+</body>
+
+</html>
